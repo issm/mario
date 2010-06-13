@@ -6,25 +6,25 @@ mario.js - Mario on your website.
 
 SYNOPSYS
 
-// create Mario.
+// create Mario
 var mario = new Mario({
-    x: 100,
-    y: 100,
+    x: 100,  // pixels from LEFT
+    y: 100,  // pixels from TOP
 });
 mario.JUMP();
 
-// create Mario controllable with keyboard.
+// create Mario controllable with keyboard
 var mario_controllable = new Mario({
     x:      200,
     y:      200,
-    scale:  2,
-    status: 'SUPER',
+    scale:  2,        // 1 or 2
+    status: 'SUPER',  // 'MINI', 'SUPER' or 'FIRE'
 });
 new Mario.Controller({
     target: mario_controllable
 });
 
-// create Luigi.
+// create Luigi
 var luigi = new Luigi({
     x: 300,
     y: 300
