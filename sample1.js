@@ -13,7 +13,7 @@ for( var i = 0; i < 1; i++ ) {
     ability: {
       accel: .25,
       bdash: 2,
-      jump:  6 
+      jump:  6
     },
     environment: new Mario.Environment({
       gravity: 9.8
@@ -21,7 +21,7 @@ for( var i = 0; i < 1; i++ ) {
     ,status: 'SUPER'
   });
 
-  var luigi = new Mario({
+  var luigi = new Luigi({
     x:           Math.random() * 400,
     y:           y,
     scale: 2,
@@ -32,8 +32,7 @@ for( var i = 0; i < 1; i++ ) {
     },
     environment: new Mario.Environment({
       gravity: 8.8
-    }),
-    type:        'LUIGI'
+    })
     //,status: 'SUPER'
   });
 
@@ -58,7 +57,7 @@ for( var i = 0; i < 1; i++ ) {
     y: 200,
     ability: {
       accel: .5
-      
+
     }
   });
   mario2.WALK();
