@@ -42,7 +42,7 @@ var _css = function (e, hash) {
             );
         }
 
-        if (v.toString().match(/^\-?\d+$/)) {
+        if (/^\-?\d+$/.test(v.toString())) {
             if(k_map != 'zIndex') {
                 v += 'px';
             }
@@ -147,7 +147,9 @@ var _pos_y = function (e) {
 
 //
 var create_class = function () {
-    return function() { this.__init.apply(this, arguments); };
+    return function() {
+        this.__init.apply(this, arguments);
+    };
 };
 
 
@@ -169,6 +171,10 @@ Mario.KEYCODE_LEFT  = 37;
 Mario.KEYCODE_RIGHT = 39;
 Mario.KEYCODE_UP    = 38;
 Mario.KEYCODE_DOWN  = 40;
+
+Mario.INTERVAL_DAEMON_DEFAULT    =  25; // [ms]
+Mario.INTERVAL_ANIMATION_DEFAULT = 100; // [ms]
+
 // 背景画像データ（内容を修正したらエンコードデータも置き換えること）
 Mario.__BGDATA = {
     MARIO: {
@@ -216,6 +222,7 @@ Mario.__BGINFO = {
 };
 
 Mario.prototype = {
+    // コンストラクタ
     __init: function (param) {
         var __this = this;
         param = param  ||  {};
@@ -229,7 +236,6 @@ Mario.prototype = {
 
         // 名前: 'MARIO' or 'LUIGI';
         this.__NAME = param.type  ||  'MARIO';
-        //this.__NAME = 'LUIGI';
 
         this.__X     = x;
         this.__Y     = y;
@@ -254,12 +260,10 @@ Mario.prototype = {
         }
 
         this.__TIMER_DAEMON;
-        this.__INTERVAL_DAEMON_DEFAULT = 25;  // [ms]
-        this.__INTERVAL_DAEMON = this.__INTERVAL_DAEMON_DEFAULT;
+        this.__INTERVAL_DAEMON = Mario.INTERVAL_DAEMON_DEFAULT;
 
         this.__TIMER_ANIMATION;
-        this.__INTERVAL_ANIMATION_DEFAULT = 100; // [ms]
-        this.__INTERVAL_ANIMATION = this.__INTERVAL_ANIMATION_DEFAULT;
+        this.__INTERVAL_ANIMATION = Mario.INTERVAL_ANIMATION_DEFAULT;
         this.__FRAME_ANIMATION = 0;
 
         this.__TIMER_WALK;
@@ -492,7 +496,8 @@ Mario.prototype = {
                     else {
                         if (! __this.__flg_crouch) { __this.__set_action( 'JUMP' ); }
                     }
-                    __this.__INTERVAL_ANIMATION = __this.__INTERVAL_ANIMATION_DEFAULT;
+                    //__this.__INTERVAL_ANIMATION = __this.__INTERVAL_ANIMATION_DEFAULT;
+                    __this.__INTERVAL_ANIMATION = Mario.INTERVAL_ANIMATION_DEFAULT;
                 }
 
                 __this.__VELOCITY_X = v_x;
