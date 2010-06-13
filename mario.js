@@ -733,10 +733,7 @@ Mario.Controller.prototype = {
         var __this = this;
 
         param = param  ||  {};
-        var mario = param.target  ||  param.mario
-        ;
-
-        this.mario = mario;
+        this.target = param.target;
 
         // キーイベントをListenする
         var __window_onkeydown = window.onkeydown
@@ -761,25 +758,25 @@ Mario.Controller.prototype = {
 
     __keydown: function (ev) {
         var is_b_dash = ev.ctrlKey;
-        var mario = this.mario
+        var target = this.target
         ;
 
         switch (ev.keyCode) {
         // ←
         case Mario.KEYCODE_LEFT:
-            mario.update_velocity(-1, is_b_dash);
+            target.update_velocity(-1, is_b_dash);
             break;
         // →
         case Mario.KEYCODE_RIGHT:
-            mario.update_velocity(1, is_b_dash);
+            target.update_velocity(1, is_b_dash);
             break;
         // ↑
         case Mario.KEYCODE_UP:
-            mario.JUMP();
+            target.JUMP();
             break;
         // ↓
         case Mario.KEYCODE_DOWN:
-            mario.CROUCH();
+            target.CROUCH();
             break;
         //
         default:
@@ -788,7 +785,7 @@ Mario.Controller.prototype = {
     },
 
     __keyup: function (ev) {
-        var mario = this.mario;
+        var target = this.target;
 
         switch (ev.keyCode) {
         // ←
@@ -802,8 +799,8 @@ Mario.Controller.prototype = {
             break;
         // ↓
         case Mario.KEYCODE_DOWN:
-            //if (! mario.__flg_jump) { mario.STAND(); }
-            mario.STAND();
+            //if (! target.__flg_jump) { target.STAND(); }
+            target.STAND();
             break;
         //
         default:
