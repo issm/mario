@@ -784,7 +784,24 @@ Mario.Controller.prototype = {
 
 
 
-if( typeof window.Mario == 'undefined' ) { window.Mario = Mario; }
-else                                     { window.MarioJS = Mario; }
+/**--------------------------------------------------------------------------------
+ *
+ *  Luigiクラス
+ *    Mario({type: 'LUIGI'}) のショートカット
+ *
+ **--------------------------------------------------------------------------------*/
+var Luigi = function (param) {
+    param.type = 'LUIGI';
+    return new Mario(param);
+};
+
+
+
+
+if (typeof window.Mario == 'undefined') { window.Mario = Mario; }
+else                                    { window.MarioJS = Mario; }
+
+if (typeof window.Luigi == 'undefined') { window.Luigi = Luigi; }
+else                                    { window.LuigiJS = Luigi; }
 /**--------------------------------------------------------------------------------------------------------------------------------**/
 })();
