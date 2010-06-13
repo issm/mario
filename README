@@ -1,0 +1,43 @@
+NAME
+
+mario.js - Mario on your website.
+
+
+
+SYNOPSYS
+
+// create Mario.
+var mario = new Mario({
+    x: 100,
+    y: 100,
+});
+mario.JUMP();
+
+// create Mario controllable with keyboard.
+var mario_controllable = new Mario({
+    x:      200,
+    y:      200,
+    scale:  2,
+    status: 'SUPER',
+});
+new Mario.Controller({
+    target: mario_controllable
+});
+
+// create Luigi.
+var luigi = new Luigi({
+    x: 300,
+    y: 300
+});
+
+
+DESCRIPTION
+
+Mario/Luigi class that create and can control Mario/Luigi.
+
+
+
+INSTALLATION(?)
+
+ * Load 'mario.js'.
+ * No other libraries are required.
