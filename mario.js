@@ -386,8 +386,8 @@ Mario.prototype = {
         this.__BGPOSITION_TOP  = - this.__HEIGHT * frame;
         _css(this.__BODY, {
             backgroundPosition: [
-                this.__BGPOSITION_LEFT, 'px',
-                this.__BGPOSITION_TOP,  'px'
+                this.__BGPOSITION_LEFT + 'px',
+                this.__BGPOSITION_TOP  + 'px'
             ].join(' ')
         } );
     },
