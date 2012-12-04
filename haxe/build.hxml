@@ -1,0 +1,5 @@
+-js bin/main.js
+-cp src
+-main mario.Main
+--js-modern
+-debug
