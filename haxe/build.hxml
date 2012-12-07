@@ -1,4 +1,4 @@
--js bin/main.js
+-js bin/mario.js
 -cp src
 -main mario.Main
 --js-modern

@@ -4,6 +4,16 @@
 <body>
   <h1>mario</h1>
   <div id="haxe:trace"></div>
-  <script type="text/javascript" src="./main.js"></script>
+  <script type="text/javascript" src="./mario.js"></script>
+  <script type="text/javascript">
+window.mario = new Mario({
+    x: 100,
+    y: 100,
+    scale: 2
+});
+new Mario.Controller({
+    target: mario
+});
+  </script>
 </body>
 </html>
