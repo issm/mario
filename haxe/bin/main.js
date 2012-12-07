@@ -1,4 +1,9 @@
 (function () { "use strict";
+function $extend(from, fields) {
+	function inherit() {}; inherit.prototype = from; var proto = new inherit();
+	for (var name in fields) proto[name] = fields[name];
+	return proto;
+}
 var Hash = function() {
 	this.h = { };
 };
@@ -439,9 +444,10 @@ js.Lib.setErrorHandler = function(f) {
 	js.Lib.onerror = f;
 }
 var mario = {}
-mario.Controller = function(param) {
+mario.Controller = function(params) {
 	var self = this;
-	this.target = param.get("target");
+	if(params == null) params = new Hash();
+	this.target = mario.Util.field_or_default(params,"target",null);
 	var doc = js.Lib.document;
 	var doc_onkeydown_stash = doc.onkeydown;
 	var doc_onkeyup_stash = doc.onkeyup;
@@ -504,19 +510,7 @@ mario.Env.prototype = {
 }
 mario.Image = function() { }
 mario.Image.__name__ = true;
-mario.Main = function() { }
-mario.Main.__name__ = true;
-mario.Main.main = function() {
-	window.mario = new mario.Mario();
-	var c = new mario.Controller((function($this) {
-		var $r;
-		var h = new Hash();
-		h.set("target",window.mario);
-		$r = h;
-		return $r;
-	}(this)));
-}
-mario.Mario = function() {
+mario.Mario = function(params) {
 	this.ABILITY_JUMP = 6;
 	this.ABILITY_BDASH = 2;
 	this.ABILITY_ACCEL = .25;
@@ -526,11 +520,13 @@ mario.Mario = function() {
 	this.VELOCITY_ZERO_RANGE = .4;
 	this.INTERVAL_ANIMATION_DEFAULT = 100;
 	this.INTERVAL_DAEMON_DEFAULT = 25;
-	var x = 100;
-	var y = 300;
-	var scale = 2;
+	if(params == null) params = new Hash();
+	var x = mario.Util.field_or_default(params,"x",0);
+	var y = mario.Util.field_or_default(params,"y",0);
+	var scale = mario.Util.field_or_default(params,"scale",1);
+	var ability = null;
 	var env = new mario.Env();
-	var div_classname = "mario";
+	var div_classname = mario.Util.field_or_default(params,"div_classname","mario");
 	this.set_name();
 	this.window = js.Lib.window;
 	this.x = x;
@@ -791,6 +787,25 @@ mario.Mario.prototype = {
 	}
 	,__class__: mario.Mario
 }
+mario.Luigi = function() {
+	mario.Mario.call(this);
+};
+mario.Luigi.__name__ = true;
+mario.Luigi.__super__ = mario.Mario;
+mario.Luigi.prototype = $extend(mario.Mario.prototype,{
+	set_name: function() {
+		this.name = "Luigi";
+	}
+	,__class__: mario.Luigi
+});
+mario.Main = function() { }
+mario.Main.__name__ = true;
+mario.Main.main = function() {
+	var w = js.Lib.window;
+	w.Mario = mario.Mario;
+	w.Luigi = mario.Luigi;
+	mario.Mario.Controller = mario.Controller;
+}
 mario.Util = function() { }
 mario.Util.__name__ = true;
 mario.Util.elm = function(name,attr,css) {
@@ -853,6 +868,9 @@ mario.Util.css = function(e,h) {
 }
 mario.Util.f2i = function(n) {
 	return Std.parseInt(Std.string(n));
+}
+mario.Util.field_or_default = function(o,f,d) {
+	return Reflect.hasField(o,f)?Reflect.field(o,f):d;
 }
 if(Array.prototype.indexOf) HxOverrides.remove = function(a,o) {
 	var i = a.indexOf(o);

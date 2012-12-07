@@ -6,15 +6,9 @@ import js.Dom;
 
 class Main {
     static function main () {
-        untyped window.mario = new mario.Mario();
-        //untyped window.mario = new mario.Luigi();
-
-        var c = new mario.Controller(
-            {
-                var h = new Hash<Dynamic>();
-                h.set( 'target', (untyped window.mario) );
-                h;
-            }
-        );
+        var w : Window = Lib.window;
+        Reflect.setField( w, 'Mario', mario.Mario );
+        Reflect.setField( w, 'Luigi', mario.Luigi );
+        Reflect.setField( mario.Mario, 'Controller', mario.Controller );
     }
 }

@@ -87,20 +87,14 @@ class Mario {
     private var BGPOS_TOP : Float;
     private var BGPOS_LEFT : Float;
 
-    public function new () : Void {
-        // param = param  ||  {};
-        // var x             = param.x  ||  0
-        //   , y             = param.y  ||  0
-        //   , scale         = param.scale  ||  1
-        //   , ability       = param.ability  ||  {}
-        //   , environment   = param.environment  ||  new Mario.Environment()
-        //   , div_classname = param.div_classname  ||  'mario'
-        // ;
-        var x : Float = 100;
-        var y : Float = 300;
-        var scale : Int = 2;
-        var env : Dynamic = new Env();
-        var div_classname : String = 'mario';
+    public function new (params : Dynamic = null) : Void {
+        if ( params == null ) { params = new Hash<Dynamic>(); }
+        var x : Float = Util.field_or_default( params, 'x', 0 );
+        var y : Float = Util.field_or_default( params, 'y', 0 );
+        var scale : Int = Util.field_or_default( params, 'scale', 1 );
+        var ability : Dynamic = null;
+        var env : Env = new Env();
+        var div_classname : String = Util.field_or_default( params, 'div_classname', 'mario' );
 
         this.set_name();
 

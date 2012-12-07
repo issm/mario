@@ -1,4 +1,5 @@
 package mario;
+import mario.Util;
 import js.Lib;
 import js.Dom;
 
@@ -15,12 +16,11 @@ class Controller {
     private var target : Mario;
 
     //__init: function (param) {
-    public function new (param : Hash<Dynamic>) {
+    public function new (params : Dynamic = null) {
         var self = this;
 
-        // param = param  ||  {};
-        // this.target = param.target;
-        this.target = param.get('target');
+        if ( params == null ) { params = new Hash<Dynamic>(); }
+        this.target = Util.field_or_default( params, 'target', null );
 
         var doc = Lib.document;
 

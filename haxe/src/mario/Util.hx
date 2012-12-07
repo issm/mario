@@ -52,4 +52,8 @@ class Util {
     public static function f2i ( n : Float ) : Int {
         return Std.parseInt( Std.string(n) );
     }
+
+    public static function field_or_default ( o : Dynamic, f : String, d : Dynamic ) : Dynamic {
+        return Reflect.hasField(o, f) ? Reflect.field(o, f) : d;
+    }
 }
