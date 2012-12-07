@@ -699,8 +699,9 @@ mario.Mario.prototype = {
 	,switch_animation: function() {
 		var self = this;
 		var key = [this.STATUS,this.ACTION].join("_");
-		var index = mario.Util.f2i(mario.Mario.BGINFO[key].INDEX) + (this.is_direction_left()?1:0);
-		var frames = mario.Mario.BGINFO[key].FRAMES;
+		var bginfo = Reflect.field(mario.Mario.BGINFO,key);
+		var index = mario.Util.f2i(bginfo.INDEX) + (this.is_direction_left()?1:0);
+		var frames = bginfo.FRAMES;
 		clearInterval(this.TIMER_ANIMATION);
 		this.TIMER_ANIMATION = setInterval(function() {
 			self.FRAME_ANIMATION = ++self.FRAME_ANIMATION % frames;
@@ -720,7 +721,8 @@ mario.Mario.prototype = {
 	}
 	,switch_bg: function() {
 		var key = [this.STATUS,this.ACTION].join("_");
-		var index = Std.parseInt(Std.string(mario.Mario.BGINFO[key].INDEX)) + (this.is_direction_left()?1:0);
+		var bginfo = Reflect.field(mario.Mario.BGINFO,key);
+		var index = Std.parseInt(Std.string(bginfo.INDEX)) + (this.is_direction_left()?1:0);
 		this.set_bg_position(key,index,0);
 		this.switch_animation();
 	}

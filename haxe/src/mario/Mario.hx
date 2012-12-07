@@ -213,8 +213,9 @@ class Mario {
 
     private function switch_bg () : Void {
         var key : String = [this.STATUS, this.ACTION].join('_');
+        var bginfo : Dynamic = Reflect.field(BGINFO, key);
         var index =
-            Std.parseInt( Std.string( untyped BGINFO[key].INDEX ) ) + ( this.is_direction_left() ? 1 : 0 );
+            Std.parseInt( Std.string( bginfo.INDEX ) ) + ( this.is_direction_left() ? 1 : 0 );
         this.set_bg_position( key, index, 0 );
         this.switch_animation();
     }
@@ -238,8 +239,9 @@ class Mario {
     private function switch_animation () : Void {
         var self = this;
         var key : String = [this.STATUS, this.ACTION].join('_');
-        var index : Int  = Util.f2i( untyped BGINFO[key].INDEX ) + ( this.is_direction_left() ? 1 : 0 );
-        var frames : Int = ( untyped BGINFO[key].FRAMES );
+        var bginfo : Dynamic = Reflect.field( BGINFO, key );
+        var index : Int  = Util.f2i( bginfo.INDEX ) + ( this.is_direction_left() ? 1 : 0 );
+        var frames : Int = ( bginfo.FRAMES );
         //var frame : Int = 0;
 
         untyped clearInterval(this.TIMER_ANIMATION);
